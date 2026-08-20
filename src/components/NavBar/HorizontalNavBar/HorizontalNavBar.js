@@ -10,6 +10,7 @@ const { useFullscreen } = require('stremio/common/Fullscreen');
 const { useHorizontalNavGamepadNavigation } = require('stremio/services/GamepadNavigation');
 const SearchBar = require('./SearchBar');
 const NavMenu = require('./NavMenu');
+
 const styles = require('./styles');
 const { t } = require('i18next');
 
@@ -23,12 +24,12 @@ const HorizontalNavBar = React.memo(({ className, route, query, title, backButto
         }
     }, [originPath, navigate]);
     const [fullscreen, requestFullscreen, exitFullscreen, , supported] = useFullscreen();
-    const renderNavMenuLabel = React.useCallback(({ ref, className, onClick, children, }) => (
-        <Button ref={ref} className={classnames(className, styles['button-container'], styles['menu-button-container'])} tabIndex={-1} onClick={onClick}>
-            <Icon className={styles['icon']} name={'person-outline'} />
-            {children}
-        </Button>
-    ), []);
+    // const renderNavMenuLabel = React.useCallback(({ ref, className, onClick, children, }) => (
+    //     <Button ref={ref} className={classnames(className, styles['button-container'], styles['menu-button-container'])} tabIndex={-1} onClick={onClick}>
+    //         <Icon className={styles['icon']} name={'person-outline'} />
+    //         {children}
+    //     </Button>
+    // ), []);
     useHorizontalNavGamepadNavigation(route || className, backButton);
     return (
         <nav {...props} className={classnames(className, styles['horizontal-nav-bar-container'])}>
@@ -75,12 +76,12 @@ const HorizontalNavBar = React.memo(({ className, route, query, title, backButto
                         :
                         null
                 }
-                {
+                {/* {
                     navMenu ?
                         <NavMenu renderLabel={renderNavMenuLabel} />
                         :
                         null
-                }
+                } */}
             </div>
         </nav>
     );
