@@ -1,6 +1,4 @@
-/node_modules
-/build
-/yarn.lock
-/npm-debug.log
-.DS_Store
-.prettierignore
+﻿node_modules/
+.env
+.env.*
+dist/
