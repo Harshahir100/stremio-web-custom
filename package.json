@@ -8,6 +8,7 @@
     "scripts": {
         "start": "webpack serve --mode development",
         "start-prod": "webpack serve --mode production",
+        "start-backend": "node server/comet-server.js",
         "build": "webpack --mode production",
         "test": "jest",
         "lint": "eslint src",

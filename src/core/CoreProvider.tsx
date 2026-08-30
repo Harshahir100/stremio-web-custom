@@ -71,6 +71,20 @@ const Core = (props: Props) => {
             .then(() => {
                 window.core = transport;
                 window.onCoreEvent = onCoreEvent;
+                // Install the server-proxied provider without exposing its private configuration.
+                fetch(`${process.env.COMET_BACKEND_URL || ''}/api/comet/manifest.json`)
+                    .then((response) => response.ok ? response.json() : null)
+                    .then((manifest) => {
+                        if (!manifest || typeof manifest !== 'object') return;
+                        return transport.dispatch({
+                            action: 'Ctx',
+                            args: {
+                                action: 'InstallAddon',
+                                args: { ...manifest, transportUrl: `${process.env.COMET_BACKEND_URL || ''}/api/comet` },
+                            },
+                        });
+                    })
+                    .catch(() => undefined);
                 setReady(true);
                 setError(null);
             })

@@ -11,7 +11,7 @@ const { Button, Image, MultiselectMenu } = require("stremio/components");
 const { useCore } = require("stremio/core");
 const Stream = require("./Stream");
 const styles = require("./styles");
-const { usePlatform, useProfile } = require('stremio/common');
+const { usePlatform } = require('stremio/common');
 // const { usePlatform } = require("stremio/common");
 const { default: SeasonEpisodePicker } = require("../EpisodePicker");
 
@@ -36,13 +36,6 @@ const StreamsList = ({ className, video, type, onEpisodeSearch, ...props }) => {
     },
     [platform],
   );
-  const showInstallAddonsButton = React.useMemo(() => {
-    return (
-      !profile ||
-      profile.auth === null ||
-      (profile.auth?.user?.isNewUser === true && !video?.upcoming)
-    );
-  }, [profile, video]);
   const backButtonOnClick = React.useCallback(() => {
     if (
       video.deepLinks &&
@@ -184,16 +177,6 @@ const StreamsList = ({ className, video, type, onEpisodeSearch, ...props }) => {
             alt={" "}
           />
           <div className={styles["label"]}>{t("NO_STREAM")}</div>
-          {showInstallAddonsButton ? (
-            <Button
-              className={styles["install-button-container"]}
-              title={t("ADDON_CATALOGUE_MORE")}
-              href={"#/addons"}
-            >
-              <Icon className={styles["icon"]} name={"addons"} />
-              <div className={styles["label"]}>{t("ADDON_CATALOGUE_MORE")}</div>
-            </Button>
-          ) : null}
         </div>
       ) : filteredStreams.length === 0 ? (
         <div className={styles["streams-container"]}>
@@ -220,18 +203,6 @@ const StreamsList = ({ className, video, type, onEpisodeSearch, ...props }) => {
                 onClick={stream.onClick}
               />
             ))}
-            {showInstallAddonsButton ? (
-              <Button
-                className={styles["install-button-container"]}
-                title={t("ADDON_CATALOGUE_MORE")}
-                href={"#/addons"}
-              >
-                <Icon className={styles["icon"]} name={"addons"} />
-                <div className={styles["label"]}>
-                  {t("ADDON_CATALOGUE_MORE")}
-                </div>
-              </Button>
-            ) : null}
           </div>
           {countLoadingAddons > 0 ? (
             <div className={styles["addons-loading-container"]}>

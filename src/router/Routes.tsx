@@ -54,6 +54,12 @@ const Routes = () => {
      * Replaced onRouteChange with following useEffect:
      */
     React.useEffect(() => {
+        const restrictedPaths = ['/addons', '/settings', '/calendar', '/library'];
+        if (restrictedPaths.some((path) => location.pathname === path || location.pathname.startsWith(`${path}/`))) {
+            navigate('/', { replace: true });
+            return;
+        }
+
         // Handle redirect if user logs out
         if (previousAuthRef.current !== null && profile.auth === null) {
             previousAuthRef.current = profile.auth;
